@@ -340,8 +340,8 @@ class IORREF_OT_AddNode(bpy.types.Operator):
         item = wm.IORRef[wm.IORRef_index]
 
         nodes = context.active_object.active_material.node_tree.nodes
-        node = nodes.new('Value')
-        node.label = item.name
+        node = nodes.new('ShaderNodeValue')
+        node.label = item.name + ' IOR'
         node.outputs[0].default_value = item.value
 
         return {'FINISHED'}
@@ -377,6 +377,8 @@ class IORREF_PT_MainPanel(bpy.types.Panel):
         layout.template_list('IORREF_UIL_List', '', wm,
                              'IORRef', wm, 'IORRef_index')
 
+        layout.operator('iorref.add_value_node')
+
 
 # -----------------------------------------------------------------------------
 # Register
@@ -385,6 +387,7 @@ class IORREF_PT_MainPanel(bpy.types.Panel):
 def register():
 
     bpy.utils.register_class(IORREF_PROP_Value)
+    bpy.utils.register_class(IORREF_OT_AddNode)
 
     wm = bpy.types.WindowManager
     wm.IORRef = CollectionProperty(type=IORREF_PROP_Value)
@@ -406,6 +409,7 @@ def unregister():
     bpy.utils.unregister_class(IORREF_UIL_List)
     bpy.utils.unregister_class(IORREF_PT_MainPanel)
     bpy.utils.unregister_class(IORREF_PROP_Value)
+    bpy.utils.unregister_class(IORREF_OT_AddNode)
 
 
 if __name__ == "__main__":
