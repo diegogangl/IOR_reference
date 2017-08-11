@@ -430,8 +430,6 @@ class IORREF_UIL_List(bpy.types.UIList):
 
 
 class IORREF_PT_MainPanel(bpy.types.Panel):
-    """Creates a Panel in the Object properties window"""
-
     bl_label = "IOR Reference"
     bl_idname = "IORREF_PT_MainPanel"
     bl_space_type = 'NODE_EDITOR'
