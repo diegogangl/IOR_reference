@@ -318,6 +318,36 @@ def build_IOR_list():
 
 
 # -----------------------------------------------------------------------------
+# OPERATOR
+# -----------------------------------------------------------------------------
+
+class IORREF_OT_AddNode(bpy.types.Operator):
+    bl_idname = 'iorref.add_value_node'
+    bl_label = 'Add value as node'
+    bl_description = 'Add IOR as a value node'
+    bl_options = {'REGISTER', 'UNDO'}
+
+    @classmethod
+    def poll(cls, context):
+        try:
+            return context.active_object.active_material.use_nodes
+        except (AttributeError, IndexError):
+            return False
+
+    def execute(self, context):
+
+        wm = context.window_manager
+        item = wm.IORRef[wm.IORRef_index]
+
+        nodes = context.active_object.active_material.node_tree.nodes
+        node = nodes.new('Value')
+        node.label = item.name
+        node.outputs[0].default_value = item.value
+
+        return {'FINISHED'}
+
+
+# -----------------------------------------------------------------------------
 # UI
 # -----------------------------------------------------------------------------
 
@@ -367,8 +397,15 @@ def register():
 
 
 def unregister():
+
+    wm = bpy.types.WindowManager
+
+    del wm.IORRef
+    del wm.IORRef_index
+
     bpy.utils.unregister_class(IORREF_UIL_List)
     bpy.utils.unregister_class(IORREF_PT_MainPanel)
+    bpy.utils.unregister_class(IORREF_PROP_Value)
 
 
 if __name__ == "__main__":
