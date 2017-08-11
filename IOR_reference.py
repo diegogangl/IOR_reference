@@ -437,6 +437,11 @@ class IORREF_PT_MainPanel(bpy.types.Panel):
     bl_space_type = 'NODE_EDITOR'
     bl_region_type = 'UI'
 
+    @classmethod
+    def poll(cls, context):
+        space_node = context.space_data
+        return space_node is not None and space_node.node_tree is not None
+
     def draw(self, context):
         layout = self.layout
         wm = context.window_manager
