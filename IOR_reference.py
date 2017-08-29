@@ -463,7 +463,7 @@ def register():
     wm.IORRef = CollectionProperty(type=IORREF_PROP_Value)
     wm.IORRef_index = IntProperty(name='IOR Reference Index', default=0)
 
-    if len(wm.IORRef) == 0:
+    if len(bpy.context.window_manager.IORRef) == 0:
         build_IOR_list()
 
     bpy.utils.register_class(IORREF_UIL_List)
