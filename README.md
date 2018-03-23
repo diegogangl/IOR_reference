@@ -11,7 +11,7 @@ And as with all UILists in Blender, you can also search and sort the list by cli
 
 ## Instaling
 
-Download the `IOR_reference.py` file and install it from the
+Download this repository as a zip file using the "Cloen or Download" button and install it from the
 addon tab in preferences.
 
 [Check out the Blender manual for more details.](https://docs.blender.org/manual/de/dev/preferences/addons.html#header)
